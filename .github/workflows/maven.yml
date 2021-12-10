@@ -7,7 +7,7 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    types: [closed]
+    types: [closed,opened,reopened]
     branches: [ main ]
 
 jobs:
