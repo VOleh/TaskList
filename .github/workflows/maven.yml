@@ -22,12 +22,12 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Build project
-      run: mvn clean install -DskipTest
+      if: github.event_name == 'pull_request' || github.event_name == 'push'
 
-    - name: Run tests
-      run: mvn test
+      run: mvn clean install
 
     - name: Build and Push Docker image
+      if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: ool15/task-list-app
